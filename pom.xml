@@ -423,10 +423,10 @@
             <fileset>
               <directory>${basedir}</directory>
               <followSymlinks>false</followSymlinks>
-              <includes>
+               <includes>
                 <include>**/*.pyc</include>
               </includes>
-            </fileset>
+             </fileset>
           </filesets>
         </configuration>
       </plugin>
@@ -513,7 +513,7 @@
         <module>ambari-logsearch</module>
         <module>ambari-infra</module>
         <module>ambari-serviceadvisor</module>
-      </modules>
+        </modules>
     </profile>
     <profile>
       <id>ambari-metrics</id>
