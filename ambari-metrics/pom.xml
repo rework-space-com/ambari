@@ -48,9 +48,9 @@
     <phoenix.hbase.compat>2.5</phoenix.hbase.compat>
     <curator.version>4.2.0</curator.version>
     <commons-lang3.version>3.12.0</commons-lang3.version>
-    <hbase.tar>https://clemlabs.s3.eu-west-3.amazonaws.com/centos7/odp-release/${odp.release.stack}-${odp.release.number}/tars/hbase/hbase-${hbase.version}-bin.tar.gz</hbase.tar>
+    <hbase.tar>https://clemlabs.s3.eu-west-3.amazonaws.com/ubuntu22/odp-release/${odp.release.stack}-${odp.release.number}/tars/hbase/hbase-${hbase.version}-bin.tar.gz</hbase.tar>
     <hbase.folder>hbase-${hbase.version}</hbase.folder>
-    <hadoop.tar>https://clemlabs.s3.eu-west-3.amazonaws.com/centos7/odp-release/${odp.release.stack}-${odp.release.number}/tars/hadoop/hadoop-${hadoop.version}.tar.gz</hadoop.tar>
+    <hadoop.tar>https://clemlabs.s3.eu-west-3.amazonaws.com/ubuntu22/odp-release/${odp.release.stack}-${odp.release.number}/tars/hadoop/hadoop-${hadoop.version}.tar.gz</hadoop.tar>
     <hadoop.folder>hadoop-${hadoop.version}</hadoop.folder>
     <grafana.folder>grafana-10.1.1</grafana.folder>
     <grafana.tar>https://dl.grafana.com/oss/release/grafana-10.1.1.linux-amd64.tar.gz</grafana.tar>
