@@ -3479,7 +3479,6 @@ describe('App.MainHostDetailsController', function () {
             properties: {
               'kms-site': {
                 'hadoop.kms.cache.enable': 'false',
-                'hadoop.kms.authentication.zk-dt-secret-manager.enable': 'true',
                 'hadoop.kms.cache.timeout.ms': '0',
                 'hadoop.kms.current.key.cache.timeout.ms': '0',
                 'hadoop.kms.authentication.signer.secret.provider': 'zookeeper',
@@ -3539,6 +3538,7 @@ describe('App.MainHostDetailsController', function () {
               type: 'kms-site',
               properties: {
                 'hadoop.kms.cache.enable': 'true',
+                'hadoop.kms.authentication.zk-dt-secret-manager.enable': 'true',
                 'hadoop.kms.cache.timeout.ms': '600000',
                 'hadoop.kms.current.key.cache.timeout.ms': '30000',
                 'hadoop.kms.authentication.signer.secret.provider': 'random',

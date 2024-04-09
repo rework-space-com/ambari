@@ -21,20 +21,12 @@
   <parent>
     <artifactId>ambari-infra</artifactId>
     <groupId>org.apache.ambari</groupId>
-    <version>2.7.5.0.0</version>
+    <version>2.7.8.0.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <name>Ambari Infra Solr Client</name>
 
   <artifactId>ambari-infra-solr-client</artifactId>
-
-  <properties>
-    <lucene6.version>6.6.2</lucene6.version>
-    <lucene6-core-jar.name>lucene-core-${lucene6.version}.jar</lucene6-core-jar.name>
-    <lucene6-core.url>https://repo1.maven.org/maven2/org/apache/lucene/lucene-core/${lucene6.version}/${lucene6-core-jar.name}</lucene6-core.url>
-    <lucene6-backward-codecs-jar.name>lucene-backward-codecs-${lucene6.version}.jar</lucene6-backward-codecs-jar.name>
-    <lucene6-backward-codecs.url>https://repo1.maven.org/maven2/org/apache/lucene/lucene-backward-codecs/${lucene6.version}/${lucene6-backward-codecs-jar.name}</lucene6-backward-codecs.url>
-  </properties>
 
   <dependencies>
     <dependency>
@@ -187,6 +179,43 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>rpm-maven-plugin</artifactId>
+        <version>2.1.4</version>
+        <executions>
+          <execution>
+            <!-- unbinds rpm creation from maven lifecycle -->
+            <phase>none</phase>
+            <goals>
+              <goal>rpm</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <group>Development</group>
+          <name>ambari-infra-solr-client</name>
+          <needarch>noarch</needarch>
+          <targetOS>linux</targetOS>
+          <postinstallScriptlet>
+            <scriptFile>${project.basedir}/src/main/package/rpm/solr-client/postinstall.sh</scriptFile>
+            <fileEncoding>utf-8</fileEncoding>
+          </postinstallScriptlet>
+          <mappings>
+            <mapping>
+              <directory>/usr/lib/ambari-infra-solr-client</directory>
+              <sources>
+                <source>
+                  <location>${project.basedir}/target/package</location>
+                  <excludes>
+                    <exclude>libs/checkstyle*.jar</exclude>
+                  </excludes>
+                </source>
+              </sources>
+            </mapping>
+          </mappings>
+        </configuration>
       </plugin>
     </plugins>
   </build>

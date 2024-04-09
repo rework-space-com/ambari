@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python2
 
 '''
 Licensed to the Apache Software Foundation (ASF) under one
@@ -47,7 +47,7 @@ class Controller(threading.Thread):
     self.application_metric_map = ApplicationMetricMap(hostinfo.get_hostname(),
                                                        hostinfo.get_ip_address())
     self.event_queue = Queue(config.get_max_queue_size())
-    self.metric_collector = MetricsCollector(self.event_queue, self.application_metric_map, hostinfo)
+    self.metric_collector = MetricsCollector(self.event_queue, self.application_metric_map, hostinfo, config)
     self.sleep_interval = config.get_collector_sleep_interval()
     self._stop_handler = stop_handler
     self.initialize_events_cache()

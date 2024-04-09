@@ -249,7 +249,7 @@ describe('App.WidgetWizardStep2Controller', function () {
         {
           dataSets: [Em.Object.create({label: '<script>alert(\'hello\')</script>'})],
           isGraphDataComplete: false,
-          title: 'not aalowed symbols'
+          title: 'not allowed symbols'
         },
         {
           dataSets: [Em.Object.create({label: 'abc'})],

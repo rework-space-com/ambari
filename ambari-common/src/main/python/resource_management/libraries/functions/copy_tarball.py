@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python2
 """
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -223,7 +223,7 @@ TARBALL_MAP = {
   },
 
   "tez_hive2": {
-    "dirs": ("{0}/{1}/tez_hive2/lib/tez.tar.gz".format(STACK_ROOT_PATTERN, STACK_VERSION_PATTERN),
+    "dirs": ("{0}/{1}/tez/lib/tez.tar.gz".format(STACK_ROOT_PATTERN, STACK_VERSION_PATTERN),
            "/{0}/apps/{1}/tez_hive2/tez.tar.gz".format(STACK_NAME_PATTERN, STACK_VERSION_PATTERN)),
     "service": "HIVE"
   },
@@ -276,6 +276,19 @@ TARBALL_MAP = {
               "/{0}/apps/{1}/spark2/spark2-{0}-hive-archive.tar.gz".format(STACK_NAME_PATTERN, STACK_VERSION_PATTERN)),
 
     "service": "SPARK2"
+  },
+
+  "spark3": {
+    "dirs": ("/tmp/spark3/spark3-{0}-yarn-archive.tar.gz".format(STACK_NAME_PATTERN),
+             "/{0}/apps/{1}/spark3/spark3-{0}-yarn-archive.tar.gz".format(STACK_NAME_PATTERN, STACK_VERSION_PATTERN)),
+    "service": "SPARK2"
+  },
+
+  "spark3hive": {
+    "dirs":  ("/tmp/spark3/spark3-{0}-hive-archive.tar.gz".format(STACK_NAME_PATTERN),
+              "/{0}/apps/{1}/spark3/spark3-{0}-hive-archive.tar.gz".format(STACK_NAME_PATTERN, STACK_VERSION_PATTERN)),
+
+    "service": "SPARK3"
   }
 }
 
@@ -291,7 +304,9 @@ SERVICE_TO_CONFIG_MAP = {
   "tez_hive2": "hive-env",
   "spark": "spark-env",
   "spark2": "spark2-env",
-  "spark2hive": "spark2-env"
+  "spark2hive": "spark2-env",
+  "spark3": "spark3-env",
+  "spark3hive": "spark3-env"
 }
 
 def get_sysprep_skip_copy_tarballs_hdfs():

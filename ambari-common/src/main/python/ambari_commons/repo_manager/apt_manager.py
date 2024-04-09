@@ -155,7 +155,7 @@ class AptManager(GenericManager):
 
   def transform_baseurl_to_repoid(self, base_url):
     """
-    Transforms the URL looking like proto://localhost/some/long/path to localhost_some_long_path
+    Transforms the URL looking like proto://login:password@localhost/some/long/path to localhost_some_long_path
 
     :type base_url str
     :rtype str
@@ -164,6 +164,9 @@ class AptManager(GenericManager):
     url_proto_pos = base_url.find(url_proto_mask)
     if url_proto_pos > 0:
       base_url = base_url[url_proto_pos+len(url_proto_mask):]
+
+    if "@" in base_url:
+      base_url = base_url.split("@", 1)[1]
 
     return base_url.replace("/", "_").replace(" ", "_")
 
@@ -259,7 +262,7 @@ class AptManager(GenericManager):
         if 'base' in context.use_repos:
           use_repos = set([v for k, v in context.use_repos.items() if k != 'base'])
         else:
-          cmd = cmd + ['-o', 'Dir::Etc::SourceList={0}'.format(self.properties.empty_file)]
+          # cmd = cmd + ['-o', 'Dir::Etc::SourceList={0}'.format(self.properties.empty_file)]
           use_repos = set(context.use_repos.values())
 
         if use_repos:
@@ -272,7 +275,7 @@ class AptManager(GenericManager):
             Logger.info("Temporary sources file will be copied: {0}".format(new_sources_file))
             sudo.copy(os.path.join(self.properties.repo_definition_location, repo + '.list'), new_sources_file)
             copied_sources_files.append(new_sources_file)
-          cmd = cmd + ['-o', 'Dir::Etc::SourceParts='.format(apt_sources_list_tmp_dir)]
+          #cmd = cmd + ['-o', 'Dir::Etc::SourceParts='.format(apt_sources_list_tmp_dir)]
 
       cmd = cmd + [name]
       Logger.info("Installing package {0} ('{1}')".format(name, shell.string_cmd_from_args_list(cmd)))

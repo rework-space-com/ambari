@@ -5,11 +5,14 @@
         "redhat",
         "fedora",
         "centos",
-        "oraclelinux"
+        "oraclelinux",
+        "almalinux"
       ],
       "versions": [
         5,
-        6
+        6,
+        7,
+        8
       ]
     },
     "ubuntu": {

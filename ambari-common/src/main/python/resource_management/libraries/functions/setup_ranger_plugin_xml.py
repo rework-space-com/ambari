@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python2
 """
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -47,9 +47,9 @@ def setup_ranger_plugin(component_select_name, service_name, previous_jdbc_jar,
                         plugin_policymgr_ssl_properties, plugin_policymgr_ssl_attributes,
                         component_list, audit_db_is_enabled, credential_file,
                         xa_audit_db_password, ssl_truststore_password,
-                        ssl_keystore_password, api_version=None, stack_version_override = None, skip_if_rangeradmin_down = True,
+                        ssl_keystore_password, policy_config_dict=None, api_version=None, stack_version_override = None, skip_if_rangeradmin_down = True,
                         is_security_enabled = False, is_stack_supports_ranger_kerberos = False,
-                        component_user_principal = None, component_user_keytab = None, cred_lib_path_override = None, cred_setup_prefix_override = None):
+                        component_user_principal = None, component_user_keytab = None, cred_lib_path_override = None, cred_setup_prefix_override = None, copy_jar = True, rangerlookup_password = None):
 
   if audit_db_is_enabled and component_driver_curl_source is not None and not component_driver_curl_source.endswith("/None"):
     if previous_jdbc_jar and os.path.isfile(previous_jdbc_jar):
@@ -59,13 +59,13 @@ def setup_ranger_plugin(component_select_name, service_name, previous_jdbc_jar,
       content = DownloadSource(component_driver_curl_source),
       mode = 0644
     )
+    if copy_jar:
+      Execute(('cp', '--remove-destination', component_downloaded_custom_connector, component_driver_curl_target),
+        path=["/bin", "/usr/bin/"],
+        sudo=True
+      )
 
-    Execute(('cp', '--remove-destination', component_downloaded_custom_connector, component_driver_curl_target),
-      path=["/bin", "/usr/bin/"],
-      sudo=True
-    )
-
-    File(component_driver_curl_target, mode=0644)
+      File(component_driver_curl_target, mode=0644)
 
   if policymgr_mgr_url.endswith('/'):
     policymgr_mgr_url = policymgr_mgr_url.rstrip('/')
@@ -83,18 +83,34 @@ def setup_ranger_plugin(component_select_name, service_name, previous_jdbc_jar,
 
     if not service_name_exist:
       if api_version is not None and api_version == 'v2':
+        Logger.info("RangerAdmin api version 2")
         ranger_adm_obj = RangeradminV2(url=policymgr_mgr_url, skip_if_rangeradmin_down=skip_if_rangeradmin_down)
         ranger_adm_obj.create_ranger_repository(service_name, repo_name, plugin_repo_dict,
                                                 ranger_env_properties['ranger_admin_username'], ranger_env_properties['ranger_admin_password'],
                                                 ranger_env_properties['admin_username'], ranger_env_properties['admin_password'],
                                                 policy_user, is_security_enabled, is_stack_supports_ranger_kerberos, component_user,
-                                                component_user_principal, component_user_keytab)
+                                                component_user_principal, component_user_keytab, rangerlookup_password)
       else:
+        Logger.info("RangerAdmin api version 1")
         ranger_adm_obj = Rangeradmin(url=policymgr_mgr_url, skip_if_rangeradmin_down=skip_if_rangeradmin_down)
         ranger_adm_obj.create_ranger_repository(service_name, repo_name, plugin_repo_dict,
                                               ranger_env_properties['ranger_admin_username'], ranger_env_properties['ranger_admin_password'],
                                               ranger_env_properties['admin_username'], ranger_env_properties['admin_password'],
                                               policy_user)
+   
+    if api_version is not None and api_version == 'v2':
+      Logger.info("RangerAdmin api version 2")
+      ranger_adm_obj = RangeradminV2(url=policymgr_mgr_url, skip_if_rangeradmin_down=skip_if_rangeradmin_down)
+      Logger.info("Check if custom policies exists")
+      if policy_config_dict is not None and policy_config_dict:
+        ranger_adm_obj.create_policy_urllib2(policy_config_dict, ranger_env_properties['ranger_admin_username'], ranger_env_properties['ranger_admin_password'])
+    else:
+      Logger.info("RangerAdmin api version 1")
+      ranger_adm_obj = Rangeradmin(url=policymgr_mgr_url, skip_if_rangeradmin_down=skip_if_rangeradmin_down)
+      Logger.info("Check if custom policies exists")
+      if policy_config_dict is not None and policy_config_dict:
+        ranger_adm_obj.create_policy_urllib2(policy_config_dict, ranger_env_properties['ranger_admin_username'], ranger_env_properties['ranger_admin_password'])
+
 
     current_datetime = datetime.now()
 

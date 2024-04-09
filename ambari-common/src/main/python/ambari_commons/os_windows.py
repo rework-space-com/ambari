@@ -1,4 +1,4 @@
-# !/usr/bin/env python
+# !/usr/bin/python2
 
 '''
 Licensed to the Apache Software Foundation (ASF) under one
@@ -470,6 +470,16 @@ def wait_for_pid_wmi(processName, parentPid, pattern, timeout):
     time.sleep(1)
   return 0
 
+
+def os_is_service_exist(serviceName):
+  try:
+    win32serviceutil.QueryServiceStatus(serviceName)
+  except:
+    # "Windows service NOT installed"
+    return False
+  else:
+    # "Windows service installed"
+    return True
 
 #need this for redirecting output form python process to file
 class SyncStreamWriter(object):

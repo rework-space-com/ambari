@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python2
 
 '''
 Licensed to the Apache Software Foundation (ASF) under one
@@ -115,7 +115,7 @@ class Emitter(threading.Thread):
     if not success:
       logger.info('No valid collectors found...')
       for collector_host in self.active_collector_hosts:
-        success = self.try_with_collector(self.collector_protocol, collector_host, self.ollector_port, data)
+        success = self.try_with_collector(self.collector_protocol, collector_host, self.collector_port, data)
         if success:
           break
       pass

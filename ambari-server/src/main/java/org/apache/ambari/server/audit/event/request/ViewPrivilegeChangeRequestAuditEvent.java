@@ -118,7 +118,7 @@ public class ViewPrivilegeChangeRequestAuditEvent extends RequestAuditEvent {
         }
         lines.add(StringUtils.join(tmpLines, ";"));
         lines.add("] ");
-      }
+       }
 
       builder.append(StringUtils.join(lines, ""));
 

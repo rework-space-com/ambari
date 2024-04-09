@@ -22,6 +22,7 @@ import glob
 from .generic_manager import GenericManagerProperties, GenericManager
 from .yum_parser import YumParser
 from ambari_commons import shell
+from ambari_commons import OSCheck
 from resource_management.core.logger import Logger
 from resource_management.core.utils import suppress_stdout
 from resource_management.core import sudo
@@ -46,8 +47,11 @@ class YumManagerProperties(GenericManagerProperties):
   available_packages_cmd = [repo_manager_bin, "list", "available", "--showduplicates"]
   installed_packages_cmd = [repo_manager_bin, "list", "installed", "--showduplicates"]
   all_packages_cmd = [repo_manager_bin, "list", "all", "--showduplicates"]
-
   yum_lib_dir = "/var/lib/yum"
+
+  if OSCheck.get_os_major_version >= 8:
+    yum_lib_dir = "/var/lib/dnf"
+
   yum_tr_prefix = "transaction-"
 
   repo_definition_location = "/etc/yum.repos.d"
@@ -205,7 +209,9 @@ class YumManager(GenericManager):
 
     :raise ValueError if name is empty
     """
-
+    if (context.is_upgrade) and (name == "odp-select"):
+      Logger.info("Skipping upgrade of {0}".format(name))
+      return True
     if not name:
       raise ValueError("Installation command was executed with no package name")
     elif context.is_upgrade or context.use_repos or not self._check_existence(name):
@@ -273,11 +279,7 @@ class YumManager(GenericManager):
     yum in inconsistant state (locked, used, having invalid repo). Once packages are installed
     we should not rely on that.
     """
-
-    if os.geteuid() == 0:
-      return self.yum_check_package_available(name)
-    else:
-      return self.rpm_check_package_available(name)
+    return self.rpm_check_package_available(name)
 
   def yum_check_package_available(self, name):
     """
@@ -342,17 +344,13 @@ class YumManager(GenericManager):
     return set(repo_ids)
 
   def rpm_check_package_available(self, name):
-    import rpm # this is faster then calling 'rpm'-binary externally.
-    ts = rpm.TransactionSet()
-    packages = ts.dbMatch()
+    import os
+    packages = os.popen("rpm -qa --queryformat '%{name} '").read().split()
 
     name_regex = re.escape(name).replace("\\?", ".").replace("\\*", ".*") + '$'
     regex = re.compile(name_regex)
-
-    for package in packages:
-      if regex.match(package['name']):
-        return True
-    return False
+    
+    return any(regex.match(package) for package in packages)
 
   def get_installed_package_version(self, package_name):
     version = None

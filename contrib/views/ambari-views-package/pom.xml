@@ -21,17 +21,16 @@
 
   <groupId>org.apache.ambari.contrib.views</groupId>
   <artifactId>ambari-views-package</artifactId>
-  <version>2.7.5.0.0</version>
+  <version>2.7.8.0.0</version>
   <name>Ambari Views Package</name>
   <parent>
     <groupId>org.apache.ambari.contrib.views</groupId>
     <artifactId>ambari-contrib-views</artifactId>
-    <version>2.7.5.0.0</version>
+    <version>2.7.8.0.0</version>
   </parent>
 
   <description>
-    This package is a meta package to create installable RPM and DEB file
-    which includes all the views jars.
+    Apache Ambari Metrics Package build by Clemlab company
   </description>
 
   <properties>
@@ -84,31 +83,32 @@
         <artifactId>jdeb</artifactId>
         <executions>
           <execution>
-            <phase>none</phase>
+            <id>jdeb-ambari-views-package</id>
+            <phase>package</phase>
             <goals>
               <goal>jdeb</goal>
             </goals>
+            <configuration>
+            <verbose>true</verbose>
+            <skip>false</skip>
+            <controlDir>${basedir}/src/main/package/deb/control</controlDir>
+            <deb>${basedir}/target/${project.artifactId}_${package-version}-${package-release}.deb</deb>
+            <dataSet>
+              <data>
+                <src>${views.jars.dir.rel}</src>
+                <type>directory</type>
+                <mapper>
+                  <prefix>${views.directory}</prefix>
+                  <filemode>777</filemode>
+                  <type>perm</type>
+                  <user>root</user>
+                  <group>root</group>
+                </mapper>
+              </data>
+            </dataSet>
+          </configuration>
           </execution>
         </executions>
-        <configuration>
-          <verbose>true</verbose>
-          <skip>false</skip>
-          <controlDir>${basedir}/src/main/package/deb/control</controlDir>
-          <deb>${basedir}/target/${project.artifactId}_${package-version}-${package-release}.deb</deb>
-          <dataSet>
-            <data>
-              <src>${views.jars.dir.rel}</src>
-              <type>directory</type>
-              <mapper>
-                <prefix>${views.directory}</prefix>
-                <filemode>777</filemode>
-                <type>perm</type>
-                <user>root</user>
-                <group>root</group>
-              </mapper>
-            </data>
-          </dataSet>
-        </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>

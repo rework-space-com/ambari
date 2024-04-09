@@ -93,7 +93,7 @@ public abstract class AbstractMiniHBaseClusterTest extends BaseTest {
     }
   }
 
-  private static String checkClusterInitialized(ReadOnlyProps serverProps) throws Exception {
+  protected static String checkClusterInitialized(ReadOnlyProps serverProps) throws Exception {
     if(!clusterInitialized) {
       url = setUpTestCluster(config, serverProps);
       clusterInitialized = true;
@@ -133,7 +133,7 @@ public abstract class AbstractMiniHBaseClusterTest extends BaseTest {
   @AfterClass
   public static void doTeardown() throws Exception {
     dropNonSystemTables();
-    tearDownMiniCluster();
+    tearDownMiniCluster(1);
   }
 
   @Before

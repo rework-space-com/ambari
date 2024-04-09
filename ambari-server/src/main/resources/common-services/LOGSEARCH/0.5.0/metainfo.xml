@@ -132,7 +132,7 @@
 
       <osSpecifics>
         <osSpecific>
-          <osFamily>redhat7,amazonlinux2,redhat6,suse11,suse12</osFamily>
+          <osFamily>almalinux8,redhat8,redhat7,amazonlinux2,redhat6,suse11,suse12</osFamily>
           <packages>
             <package>
               <name>ambari-logsearch-logfeeder</name>
@@ -150,7 +150,7 @@
           </packages>
         </osSpecific>
         <osSpecific>
-          <osFamily>debian7,debian9,ubuntu12,ubuntu14,ubuntu16,ubuntu18</osFamily>
+          <osFamily>debian7,debian9,ubuntu12,ubuntu14,ubuntu16,ubuntu18,ubuntu22</osFamily>
           <packages>
             <package>
               <name>ambari-logsearch-logfeeder</name>

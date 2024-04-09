@@ -81,24 +81,23 @@ public class ClusterPrivilegeChangeRequestAuditEvent extends RequestAuditEvent {
 
       builder.append(", Roles(");
 
-
       List<String> lines = new LinkedList<>();
 
       for (String role : roleSet) {
-        List<String>  tmpLines = new LinkedList<>();
-        lines.add(role + ": [");
-        if (users.get(role) != null && !users.get(role).isEmpty()) {
-          tmpLines.add("Users: " + StringUtils.join(users.get(role), ", "));
-        }
-        if (groups.get(role) != null && !groups.get(role).isEmpty()) {
-          tmpLines.add("Groups: " + StringUtils.join(groups.get(role), ", "));
-        }
-        if (roles.get(role) != null && !roles.get(role).isEmpty()) {
-          tmpLines.add("Roles: " + StringUtils.join(roles.get(role), ", "));
-        }
-        lines.add(StringUtils.join(tmpLines, ";"));
-        lines.add("] ");
-      }
+         List<String>  tmpLines = new LinkedList<>();
+         lines.add(role + ": [");
+         if (users.get(role) != null && !users.get(role).isEmpty()) {
+           tmpLines.add("Users: " + StringUtils.join(users.get(role), ", "));
+         }
+         if (groups.get(role) != null && !groups.get(role).isEmpty()) {
+           tmpLines.add("Groups: " + StringUtils.join(groups.get(role), ", "));
+         }
+         if (roles.get(role) != null && !roles.get(role).isEmpty()) {
+           tmpLines.add("Roles: " + StringUtils.join(roles.get(role), ", "));
+         }
+         lines.add(StringUtils.join(tmpLines, ";"));
+         lines.add("] ");
+       }
 
       builder.append(StringUtils.join(lines, ""));
 

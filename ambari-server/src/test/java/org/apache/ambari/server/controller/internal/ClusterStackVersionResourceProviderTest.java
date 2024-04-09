@@ -298,7 +298,7 @@ public class ClusterStackVersionResourceProviderTest {
     expect(managementController.getPackagesForServiceHost(anyObject(ServiceInfo.class),
             EasyMock.<Map<String, String>>anyObject(), anyObject(String.class))).
             andReturn(packages).anyTimes();
-    expect(managementController.findConfigurationTagsWithOverrides(anyObject(Cluster.class), EasyMock.anyString()))
+    expect(managementController.findConfigurationTagsWithOverrides(anyObject(Cluster.class), EasyMock.anyString(), anyObject()))
       .andReturn(new HashMap<String, Map<String, String>>()).anyTimes();
 
     expect(clusters.getCluster(anyObject(String.class))).andReturn(cluster);
@@ -719,7 +719,7 @@ public class ClusterStackVersionResourceProviderTest {
     expect(resourceProviderFactory.getHostResourceProvider(
             eq(managementController))).andReturn(csvResourceProvider).anyTimes();
 
-    expect(managementController.findConfigurationTagsWithOverrides(anyObject(Cluster.class), EasyMock.anyString()))
+    expect(managementController.findConfigurationTagsWithOverrides(anyObject(Cluster.class), EasyMock.anyString(), anyObject()))
       .andReturn(new HashMap<String, Map<String, String>>()).anyTimes();
 
 
@@ -943,7 +943,7 @@ public class ClusterStackVersionResourceProviderTest {
             EasyMock.anyObject(), anyObject(String.class))).
             andReturn(packages).anyTimes(); // only one host has the versionable component
 
-    expect(managementController.findConfigurationTagsWithOverrides(anyObject(Cluster.class), EasyMock.anyString()))
+    expect(managementController.findConfigurationTagsWithOverrides(anyObject(Cluster.class), EasyMock.anyString(), anyObject()))
     .andReturn(new HashMap<String, Map<String, String>>()).anyTimes();
 
     expect(clusters.getCluster(anyObject(String.class))).andReturn(cluster);
@@ -1157,7 +1157,7 @@ public class ClusterStackVersionResourceProviderTest {
             EasyMock.<Map<String, String>>anyObject(), anyObject(String.class))).
             andReturn(packages).anyTimes();
 
-    expect(managementController.findConfigurationTagsWithOverrides(anyObject(Cluster.class), EasyMock.anyString()))
+    expect(managementController.findConfigurationTagsWithOverrides(anyObject(Cluster.class), EasyMock.anyString(), anyObject()))
       .andReturn(new HashMap<String, Map<String, String>>()).anyTimes();
 
     expect(clusters.getCluster(anyObject(String.class))).andReturn(cluster);
@@ -1483,15 +1483,15 @@ public class ClusterStackVersionResourceProviderTest {
       expect(host.getHostName()).andReturn(hostname).anyTimes();
       expect(host.getOsFamily()).andReturn("redhat-ppc7").anyTimes();
       expect(host.getMaintenanceState(EasyMock.anyLong())).andReturn(
-          MaintenanceState.OFF).anyTimes();
+              MaintenanceState.OFF).anyTimes();
       expect(host.getAllHostVersions()).andReturn(
-          Collections.<HostVersionEntity>emptyList()).anyTimes();
+              Collections.<HostVersionEntity>emptyList()).anyTimes();
       expect(host.getHostAttributes()).andReturn(
-          ImmutableMap.<String, String>builder()
-            .put("os_family", "redhat-ppc")
-            .put("os_release_version", "7.2")
-            .build()
-          ).anyTimes();
+              ImmutableMap.<String, String>builder()
+                      .put("os_family", "redhat-ppc")
+                      .put("os_release_version", "7.2")
+                      .build()
+      ).anyTimes();
       replay(host);
       hostsForCluster.put(hostname, host);
     }
@@ -1534,7 +1534,8 @@ public class ClusterStackVersionResourceProviderTest {
             (Map<String, String>) anyObject(List.class), anyObject(String.class))).
             andReturn(packages).anyTimes();
 
-    expect(managementController.findConfigurationTagsWithOverrides(anyObject(Cluster.class), EasyMock.anyString()))
+
+    expect(managementController.findConfigurationTagsWithOverrides(anyObject(Cluster.class), EasyMock.anyString(), anyObject()))
       .andReturn(new HashMap<String, Map<String, String>>()).anyTimes();
 
 
@@ -1543,7 +1544,7 @@ public class ClusterStackVersionResourceProviderTest {
 
     expect(clusters.getCluster(anyObject(String.class))).andReturn(cluster);
     expect(clusters.getHostsForCluster(anyObject(String.class))).andReturn(
-        hostsForCluster).anyTimes();
+            hostsForCluster).anyTimes();
 
     String clusterName = "Cluster100";
     expect(cluster.getClusterId()).andReturn(1L).anyTimes();
@@ -1562,9 +1563,9 @@ public class ClusterStackVersionResourceProviderTest {
       }
     }).anyTimes();
     expect(cluster.transitionHostsToInstalling(
-        anyObject(RepositoryVersionEntity.class),
-        anyObject(VersionDefinitionXml.class),
-        EasyMock.anyBoolean())).andReturn(new ArrayList<>(hostsForCluster.values())).anyTimes();
+            anyObject(RepositoryVersionEntity.class),
+            anyObject(VersionDefinitionXml.class),
+            EasyMock.anyBoolean())).andReturn(new ArrayList<>(hostsForCluster.values())).anyTimes();
 
 
     ExecutionCommand executionCommand = createNiceMock(ExecutionCommand.class);
@@ -1958,7 +1959,7 @@ public class ClusterStackVersionResourceProviderTest {
          EasyMock.<Map<String, String>>anyObject(), anyObject(String.class))).
      andReturn(packages).anyTimes(); // only one host has the versionable component
 
-     expect(managementController.findConfigurationTagsWithOverrides(anyObject(Cluster.class), EasyMock.anyString()))
+     expect(managementController.findConfigurationTagsWithOverrides(anyObject(Cluster.class), EasyMock.anyString(), anyObject()))
      .andReturn(new HashMap<String, Map<String, String>>()).anyTimes();
 
      expect(clusters.getCluster(anyObject(String.class))).andReturn(cluster).anyTimes();

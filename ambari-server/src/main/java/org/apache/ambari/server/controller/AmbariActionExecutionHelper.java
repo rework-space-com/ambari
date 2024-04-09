@@ -258,7 +258,6 @@ public class AmbariActionExecutionHelper {
   public void addExecutionCommandsToStage(final ActionExecutionContext actionContext, Stage stage,
                                           Map<String, String> requestParams, boolean checkHostIsMemberOfCluster)
       throws AmbariException {
-
     String actionName = actionContext.getActionName();
     String clusterName = actionContext.getClusterName();
     final Cluster cluster;
@@ -267,7 +266,6 @@ public class AmbariActionExecutionHelper {
     } else {
       cluster = null;
     }
-
     ComponentInfo componentInfo = null;
     List<RequestResourceFilter> resourceFilters = actionContext.getResourceFilters();
     final RequestResourceFilter resourceFilter;
@@ -276,7 +274,6 @@ public class AmbariActionExecutionHelper {
     } else {
       resourceFilter = new RequestResourceFilter();
     }
-
     // List of host to select from
     Set<String> candidateHosts = new HashSet<>();
 
@@ -289,9 +286,9 @@ public class AmbariActionExecutionHelper {
     } else {
       LOG.debug("Resource filter has hosts: {}", StringUtils.join(resourceFilter.getHostNames(), ", "));
     }
-
     if (null != cluster) {
 //      StackId stackId = cluster.getCurrentStackVersion();
+
       if (serviceName != null && !serviceName.isEmpty()) {
         if (componentName != null && !componentName.isEmpty()) {
           Service service = cluster.getService(serviceName);
@@ -300,7 +297,6 @@ public class AmbariActionExecutionHelper {
 
           Map<String, ServiceComponentHost> componentHosts = component.getServiceComponentHosts();
           candidateHosts.addAll(componentHosts.keySet());
-
           try {
             componentInfo = ambariMetaInfo.getComponent(stackId.getStackName(),
                 stackId.getStackVersion(), serviceName, componentName);
@@ -445,7 +441,7 @@ public class AmbariActionExecutionHelper {
       // time - if it's not needed, then don't do it
       Map<String, Map<String, String>> configTags = new TreeMap<>();
       if (!execCmd.getForceRefreshConfigTagsBeforeExecution()) {
-        configTags = managementController.findConfigurationTagsWithOverrides(cluster, hostName);
+        configTags = managementController.findConfigurationTagsWithOverrides(cluster, hostName, null);
       }
 
       execCmd.setConfigurationTags(configTags);

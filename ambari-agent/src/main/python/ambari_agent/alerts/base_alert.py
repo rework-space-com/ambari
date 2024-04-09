@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python2
 
 """
 Licensed to the Apache Software Foundation (ASF) under one
@@ -185,6 +185,7 @@ class BaseAlert(object):
       data['text'] = "There is a problem with the alert definition: {0}".format(str(exception))
     finally:
       # put the alert into the collector so it can be collected on the next run
+      data['text'] = data['text'].replace('\x00', '')
       self.collector.put(self.cluster_name, data)
 
 

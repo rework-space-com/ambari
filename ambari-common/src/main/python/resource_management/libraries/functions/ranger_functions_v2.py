@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python2
 """
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -93,44 +93,83 @@ class RangeradminV2:
     except TimeoutError:
       raise Fail("Connection to Ranger Admin failed. Reason - timeout")
 
+
   def create_ranger_repository(self, component, repo_name, repo_properties,
                                ambari_ranger_admin, ambari_ranger_password,
                                admin_uname, admin_password, policy_user, is_security_enabled = False, is_stack_supports_ranger_kerberos = False,
-                               component_user = None, component_user_principal = None, component_user_keytab = None):
-    if not is_stack_supports_ranger_kerberos or not is_security_enabled:
-      response_code = self.check_ranger_login_urllib2(self.base_url)
-      repo_data = json.dumps(repo_properties)
-      ambari_ranger_password = unicode(ambari_ranger_password)
-      admin_password = unicode(admin_password)
-      ambari_username_password_for_ranger = format('{ambari_ranger_admin}:{ambari_ranger_password}')
+                               component_user = None, component_user_principal = None, component_user_keytab = None, rangerlookup_password = None):
 
+    ## TODO: move user creation to ranger start as it need to be created only once
+    ## [BUG-1]: external user creation was inside the condition
 
-      if response_code is not None and response_code == 200:
+    ambari_ranger_password = unicode(ambari_ranger_password)
+    admin_password = unicode(admin_password)
+    ambari_username_password_for_ranger = format('{ambari_ranger_admin}:{ambari_ranger_password}')
+    retryCount = 0
+
+    # ranger ambari external user creation
+    Logger.info("Start Ambari Ranger External User Creation process")
+    while retryCount <= 30:
+      response_code = self.check_ranger_login_urllib2(self.base_url, ambari_username_password_for_ranger)
+      if response_code is None and response_code != 200:
+        Logger.info("Creating Ambari Ranger External User")
         user_resp_code = self.create_ambari_admin_user(ambari_ranger_admin, ambari_ranger_password, format("{admin_uname}:{admin_password}"))
+        retryCount += 1
         if user_resp_code is not None and user_resp_code == 200:
-          retryCount = 0
-          while retryCount <= 5:
-            repo = self.get_repository_by_name_urllib2(repo_name, component, 'true', ambari_username_password_for_ranger)
-            if repo is not None:
-              Logger.info('{0} Repository {1} exist'.format(component.title(), repo['name']))
-              break
-            else:
-              response = self.create_repository_urllib2(repo_data, ambari_username_password_for_ranger)
-              if response is not None:
-                Logger.info('{0} Repository created in Ranger admin'.format(component.title()))
-                break
-              else:
-                if retryCount < 5:
-                  Logger.info("Retry Repository Creation is being called")
-                  time.sleep(30) # delay for 30 seconds
-                  retryCount += 1
-                else:
-                  Logger.error('{0} Repository creation failed in Ranger admin'.format(component.title()))
-                  break
+          Logger.info("Ambari Ranger External User Created Successfully")
+          break
         else:
-          Logger.error('Ambari admin user creation failed')
+          Logger.error("Ambari Ranger External User Ranger Failed")
+      elif response_code is not None and response_code == 200:
+        Logger.info("Ambari Ranger External User Already Exists Skipping...")
+        break
       elif not self.skip_if_rangeradmin_down:
         Logger.error("Connection failed to Ranger Admin !")
+        break
+
+    if rangerlookup_password != None:
+      Logger.info("Start Repository rangerlookup User Creation process")
+      ranger_lookup_password = unicode(rangerlookup_password)
+      rangerlookup_username_password_for_ranger = format('rangerlookup:{ranger_lookup_password}')
+      while retryCount <= 30:
+        response_code = self.check_ranger_login_urllib2(self.base_url, rangerlookup_username_password_for_ranger, 'rangerlookup')
+        if response_code is None and response_code != 200:
+          Logger.info("Creating rangerlookup User")
+          user_resp_code = self.create_rangerlookup_user(ambari_ranger_admin, ambari_ranger_password, rangerlookup_password, format("{admin_uname}:{admin_password}"))
+          retryCount += 1
+          if user_resp_code is not None and user_resp_code == 200:
+            Logger.info("Repository rangerlookup User Created Successfully")
+            break
+          else:
+            Logger.error("Repository rangerlookup User Creation Failed")
+        elif response_code is not None and response_code == 200:
+          Logger.info("Repository rangerlookup User Already Exists Skipping...")
+          break
+        elif not self.skip_if_rangeradmin_down:
+          Logger.error("Connection failed to Ranger Admin !")
+          break
+
+    if not is_stack_supports_ranger_kerberos or not is_security_enabled:
+      repo_data = json.dumps(repo_properties)
+      retryCount = 0
+      while retryCount <= 5:
+        repo = self.get_repository_by_name_urllib2(repo_name, component, 'true', ambari_username_password_for_ranger)
+        if repo is not None:
+          Logger.info('{0} Repository {1} exist'.format(component.title(), repo['name']))
+          break
+        else:
+          response = self.create_repository_urllib2(repo_data, ambari_username_password_for_ranger)
+          if response is not None:
+            Logger.info('{0} Repository created in Ranger admin'.format(component.title()))
+            break
+          else:
+            if retryCount < 5:
+              Logger.info("Retry Repository Creation is being called")
+              time.sleep(30) # delay for 30 seconds
+              retryCount += 1
+            else:
+              Logger.error('{0} Repository creation failed in Ranger admin'.format(component.title()))
+              break
     elif is_stack_supports_ranger_kerberos and is_security_enabled:
       response = self.check_ranger_login_curl(component_user,component_user_keytab,component_user_principal,self.url_login,True)
 
@@ -192,16 +231,69 @@ class RangeradminV2:
     except TimeoutError:
       raise Fail("Connection to Ranger Admin failed. Reason - timeout")
 
-  @safe_retry(times=75, sleep_time=8, backoff_factor=1, err_class=Fail, return_on_fail=None)
-  def check_ranger_login_urllib2(self, url):
+  @safe_retry(times=5, sleep_time=8, backoff_factor=1.5, err_class=Fail, return_on_fail=None)
+  def create_policy_urllib2(self, data, ambari_ranger_admin, ambari_ranger_password):
+    """
+    :param data: json object to create policy
+    :param ambari_ranger_admin ranger admin account
+    :password: ambari_ranger_password ranger admin password
+    :return: Returns created Ranger reposipolicytory object
+    """
+    policy_data = json.dumps(data)
+    ambari_username_password_for_ranger = format('{ambari_ranger_admin}:{ambari_ranger_password}')
+    try:
+      search_policy_url = self.url_policies
+      base_64_string = base64.encodestring('{0}'.format(ambari_username_password_for_ranger)).replace('\n', '')
+      headers = {
+        'Accept': 'application/json',
+        "Content-Type": "application/json"
+      }
+      request = urllib2.Request(search_policy_url, policy_data, headers)
+      request.add_header("Authorization", "Basic {0}".format(base_64_string))
+      result = openurl(request, timeout=20)
+      response_code = result.getcode()
+      response = json.loads(json.JSONEncoder().encode(result.read()))
+
+      if response_code == 200:
+        Logger.info('Policy created Successfully')
+        return response
+      if response_code == 400:
+        Logger.info('Policy already exists')
+        return response
+      else:
+        raise Fail('Policy creation failed')
+    except urllib2.URLError, e:
+      if isinstance(e, urllib2.HTTPError):
+        return_message = e.read()
+        if "Another policy already exists for this name" in return_message:
+          Logger.info('Policy already exists')
+        else:
+          raise Fail("Error creating policy. Http status code - {0}. \n {1}".format(e.code, e.read()))
+      else:
+        raise Fail("Error creating policy. Reason - {0}.".format(e.reason))
+    except httplib.BadStatusLine:
+      raise Fail("Ranger Admin service is not reachable, please restart the service and then try again")
+    except TimeoutError:
+      raise Fail("Connection to Ranger Admin failed. Reason - timeout")
+
+  @safe_retry(times=5, sleep_time=8, backoff_factor=1, err_class=Fail, return_on_fail=None)
+  def check_ranger_login_urllib2(self, url, ambari_username_password_for_ranger, user_login_check="admin"):
     """
     :param url: ranger admin host url
     :param usernamepassword: user credentials using which repository needs to be searched.
     :return: Returns login check response
     """
     try:
-      response = openurl(url, timeout=20)
-      response_code = response.getcode()
+      login_url = format('{url}/service/users/1') if user_login_check is 'admin' else format('{url}/service/xusers/users/userName/{user_login_check}')
+      search_policy_url = self.url_policies
+      base_64_string = base64.encodestring('{0}'.format(ambari_username_password_for_ranger)).replace('\n', '')
+      headers = {
+        "Content-Type": "application/json"
+      }
+      request = urllib2.Request(login_url, None, headers)
+      request.add_header("Authorization", "Basic {0}".format(base_64_string))
+      result = openurl(request, timeout=20)
+      response_code = result.getcode()
       return response_code
     except urllib2.URLError, e:
       if isinstance(e, urllib2.HTTPError):
@@ -280,6 +372,79 @@ class RangeradminV2:
         raise Fail("Error creating ambari admin user. Http status code - {0}. \n {1}".format(e.code, e.read()))
       else:
         raise Fail("Error creating ambari admin user. Reason - {0}.".format(e.reason))
+    except httplib.BadStatusLine:
+      raise Fail("Ranger Admin service is not reachable, please restart the service and then try again")
+    except TimeoutError:
+      raise Fail("Connection to Ranger Admin failed. Reason - timeout")
+
+  @safe_retry(times=5, sleep_time=8, backoff_factor=1.5, err_class=Fail, return_on_fail=None)
+  def create_rangerlookup_user(self, ranger_admin_username, ranger_admin_password, ranger_lookup_password, usernamepassword):
+    """
+    :param ranger_admin_username: admin username
+    :param ranger_admin_password: admin password
+    :param ranger_lookup_password: rangerlookup password to create.
+    :return: response code.
+    """
+    flag_rangerlookup_present = False
+    match = re.match('[a-zA-Z0-9_\S]+$', ranger_lookup_password)
+    if match is None:
+      raise Fail('Invalid password given for Ranger rangerlookup user')
+    try:
+      Logger.info('Cheking if rangerlookup user already exists')
+      url =  self.url_users + '?name=' + str('rangerlookup')
+      request = urllib2.Request(url)
+      base_64_string = base64.encodestring(usernamepassword).replace('\n', '')
+      request.add_header("Content-Type", "application/json")
+      request.add_header("Accept", "application/json")
+      request.add_header("Authorization", "Basic {0}".format(base_64_string))
+      result = openurl(request, timeout=20)
+      response_code = result.getcode()
+      response = json.loads(result.read())
+      if response_code == 200 and len(response['vXUsers']) >= 0:
+        for vxuser in response['vXUsers']:
+          if vxuser['name'] == 'rangerlookup':
+            flag_rangerlookup_present = True
+            break
+          else:
+            flag_rangerlookup_present = False
+
+        if flag_rangerlookup_present:
+          Logger.info('rangerlookup' + ' user already exists.')
+          return response_code
+        else:
+          Logger.info('rangerlookup' + ' user is not present, creating user using given configurations')
+          url = self.url_sec_users
+          rangerlookup_user = dict()
+          rangerlookup_user['status'] = 1
+          rangerlookup_user['userRoleList'] = ['ROLE_USER']
+          rangerlookup_user['name'] = 'rangerlookup'
+          rangerlookup_user['password'] = ranger_lookup_password
+          rangerlookup_user['description'] = 'rangerlookup user needed for repository creation'
+          rangerlookup_user['firstName'] = 'rangerlookup'
+          data =  json.dumps(rangerlookup_user)
+          base_64_string = base64.encodestring(format("{ranger_admin_username}:{ranger_admin_password}")).replace('\n', '')
+          headers = {
+            'Accept': 'application/json',
+            "Content-Type": "application/json"
+          }
+          request = urllib2.Request(url, data, headers)
+          request.add_header("Authorization", "Basic {0}".format(base_64_string))
+          result = openurl(request, timeout=20)
+          response_code = result.getcode()
+          response = json.loads(json.JSONEncoder().encode(result.read()))
+          if response_code == 200 and response is not None:
+            Logger.info('rangerlookup user creation successful.')
+            return response_code
+          else:
+            Logger.error('rangerlookup user creation failed.')
+            return None
+      else:
+        return None
+    except urllib2.URLError, e:
+      if isinstance(e, urllib2.HTTPError):
+        raise Fail("Error creating rangerlookup user. Http status code - {0}. \n {1}".format(e.code, e.read()))
+      else:
+        raise Fail("Error creating rangerlookup user. Reason - {0}.".format(e.reason))
     except httplib.BadStatusLine:
       raise Fail("Ranger Admin service is not reachable, please restart the service and then try again")
     except TimeoutError:

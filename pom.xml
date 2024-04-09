@@ -21,7 +21,7 @@
   <artifactId>ambari</artifactId>
   <packaging>pom</packaging>
   <name>Ambari Main</name>
-  <version>2.7.5.0.0</version>
+  <version>2.7.8.0.0</version>
   <description>Ambari</description>
   <url>https://ambari.apache.org/</url>
   <scm>
@@ -47,11 +47,11 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <clover.license>${user.home}/clover.license</clover.license>
     <buildnumber-maven-plugin-version>1.2</buildnumber-maven-plugin-version>
-    <deb.publisher>Hortonworks</deb.publisher>
+    <deb.publisher>Clemlab</deb.publisher>
     <deb.section>universe/admin</deb.section>
     <deb.architecture>i386 amd64</deb.architecture>
     <deb.priority>extra</deb.priority>
-    <stack.distribution>HDP</stack.distribution>
+    <stack.distribution>ODP</stack.distribution>
     <ambari.dir>${project.basedir}</ambari.dir>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <distMgmtSnapshotsId>apache.snapshots.https</distMgmtSnapshotsId>
@@ -130,11 +130,10 @@
         <enabled>false</enabled>
       </releases>
     </repository>
-    <!-- ToDo: remove after moving the Metrics HDP dependencies to the public nexus -->
     <repository>
-      <id>private-nexus</id>
-      <name>private-nexus</name>
-      <url>https://nexus-private.hortonworks.com/nexus/content/groups/public/</url>
+      <id>clemlab</id>
+      <name>clemlab</name>
+      <url>https://nexus.clemlab.com/repository/maven-releases/</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
@@ -142,7 +141,6 @@
         <enabled>true</enabled>
       </releases>
     </repository>
-    <!-- //ToDo: END -->
   </repositories>
 
   <build>
@@ -279,7 +277,6 @@
             <exclude>CHANGES.txt</exclude>
             <exclude>pass.txt</exclude>
             <exclude>contrib/ambari-scom/msi/src/GUI_Ambari.sln</exclude>
-            <exclude>contrib/fast-hdfs-resource/dependency-reduced-pom.xml</exclude>
             <exclude>contrib/agent-simulator/docker_image/package_list.txt</exclude>
             <exclude>contrib/agent-simulator/config/cluster.txt</exclude>
             <exclude>version</exclude>

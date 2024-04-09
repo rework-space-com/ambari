@@ -21,7 +21,7 @@
   <parent>
     <artifactId>ambari-metrics</artifactId>
     <groupId>org.apache.ambari</groupId>
-    <version>2.7.5.0.0</version>
+    <version>2.7.8.0.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>ambari-metrics-common</artifactId>
@@ -32,26 +32,6 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.2</version>
-      </plugin>
-      <plugin>
-        <groupId>org.vafer</groupId>
-        <artifactId>jdeb</artifactId>
-        <executions>
-          <execution>
-            <!--Stub execution on direct plugin call - workaround for ambari deb build process-->
-            <id>stub-execution</id>
-            <phase>none</phase>
-            <goals>
-              <goal>jdeb</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <skip>true</skip>
-          <attach>false</attach>
-          <submodules>false</submodules>
-          <controlDir>${project.basedir}/../src/main/package/deb/control</controlDir>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -67,56 +47,6 @@
             <configuration>
               <minimizeJar>true</minimizeJar>
               <createDependencyReducedPom>false</createDependencyReducedPom>
-              <relocations>
-                <relocation>
-                  <pattern>com.google</pattern>
-                  <shadedPattern>org.apache.ambari.metrics.sink.relocated.google</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>org.apache.commons.io</pattern>
-                  <shadedPattern>org.apache.ambari.metrics.sink.relocated.commons.io</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>org.apache.commons.lang</pattern>
-                  <shadedPattern>org.apache.ambari.metrics.relocated.commons.lang</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>org.apache.curator</pattern>
-                  <shadedPattern>org.apache.ambari.metrics.sink.relocated.curator</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>org.apache.jute</pattern>
-                  <shadedPattern>org.apache.ambari.metrics.sink.relocated.jute</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>org.apache.zookeeper</pattern>
-                  <shadedPattern>org.apache.ambari.metrics.sink.relocated.zookeeper</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>org.slf4j</pattern>
-                  <shadedPattern>org.apache.ambari.metrics.sink.relocated.slf4j</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>org.apache.log4j</pattern>
-                  <shadedPattern>org.apache.ambari.metrics.sink.relocated.log4j</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>jline</pattern>
-                  <shadedPattern>org.apache.ambari.metrics.sink.relocated.jline</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>org.jboss</pattern>
-                  <shadedPattern>org.apache.ambari.metrics.sink.relocated.jboss</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>org.apache.http</pattern>
-                  <shadedPattern>org.apache.ambari.metrics.sink.relocated.apache.http</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>org.codehaus.jackson</pattern>
-                  <shadedPattern>org.apache.ambari.metrics.sink.relocated.jackson</shadedPattern>
-                </relocation>
-              </relocations>
               <filters>
                 <filter>
                   <artifact>*:*</artifact>
@@ -148,7 +78,7 @@
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
-      <version>2.2.2</version>
+      <version>2.9.0</version>
     </dependency>
     <dependency>
       <groupId>com.google.guava</groupId>
@@ -158,7 +88,17 @@
     <dependency>
       <groupId>org.apache.curator</groupId>
       <artifactId>curator-framework</artifactId>
-      <version>4.0.0</version>
+      <version>${curator.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>log4j</groupId>
+          <artifactId>log4j</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.codehaus.jackson</groupId>
@@ -168,7 +108,7 @@
     <dependency>
       <groupId>org.apache.hadoop</groupId>
       <artifactId>hadoop-annotations</artifactId>
-      <version>2.6.0</version>
+      <version>${hadoop.version}</version>
       <exclusions>
         <exclusion>
           <groupId>jdk.tools</groupId>
@@ -190,6 +130,11 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-math3</artifactId>
       <version>3.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.5.13</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -214,9 +159,10 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
-      <version>4.5.2</version>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>

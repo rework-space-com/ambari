@@ -3,6 +3,7 @@
       "redhat": {
         "distro": [
           "redhat",
+          "almalinux",
           "fedora",
           "centos",
           "oraclelinux",
@@ -14,11 +15,12 @@
           "slc",
           "scientific",
           "psbm",
-          "centos linux"
+          "centos linux",
         ],
         "versions": [
           6,
-          7
+          7,
+          8
         ]
       },
       "redhat-ppc": {
@@ -29,7 +31,8 @@
         ],
         "versions": [
           6,
-          7
+          7,
+          8
         ]
       },
       "amazonlinux": {
@@ -59,7 +62,8 @@
           12,
           14,
           16,
-          18
+          18,
+          22
         ]
       },
       "suse": {

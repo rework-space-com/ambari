@@ -88,7 +88,6 @@ public class AddRepositoryVersionRequestAuditEvent extends RequestAuditEvent {
         .append(repoVersion)
         .append("), Repositories(");
 
-
       for (Map.Entry<String, List<Map<String, String>>> repo : repos.entrySet()) {
         builder.append("Operating system: ").append(repo.getKey());
         builder.append("(");
