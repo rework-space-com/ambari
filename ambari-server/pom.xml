@@ -1905,7 +1905,7 @@
     <pluginRepository>
       <id>oss.sonatype.org</id>
       <name>OSS Sonatype Staging</name>
-      <url>https://oss.sonatype.org/content/groups/staging</url>
+      <url>https://nexus-rm.rework-space.com/repository/maven2-oss-sonatype/</url>
     </pluginRepository>
   </pluginRepositories>
 
