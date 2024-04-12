@@ -44,6 +44,26 @@
     <swagger-maven-plugin-version>3.1.7</swagger-maven-plugin-version>
   </properties>
 
+  <pluginRepositories>
+    <pluginRepository>
+      <id>maven-central</id>
+      <url>https://nexus-rm.scalhive.com/repository/maven-central-ambari/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <repositories>
+    <repository>
+      <id>maven-central</id>
+      <url>https://nexus-rm.scalhive.com/repository/maven-central-ambari/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
   <build>
     <finalName>ambari-infra-manager_${project.version}</finalName>
     <plugins>

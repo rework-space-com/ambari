@@ -27,6 +27,19 @@
   <artifactId>ambari-metrics-common</artifactId>
   <name>Ambari Metrics Common</name>
 
+  <repositories>
+    <repository>
+      <id>maven-central</id>
+      <url>https://nexus-rm.scalhive.com/repository/maven-central-ambari/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
   <build>
     <plugins>
       <plugin>

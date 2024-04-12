@@ -56,6 +56,13 @@
     <url>https://issues.apache.org/jira/browse/AMBARI</url>
   </issueManagement>
 
+  <pluginRepositories>
+    <pluginRepository>
+      <id>maven-central</id>
+      <url>https://nexus-rm.scalhive.com/repository/maven-central-ambari/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
   <repositories>
     <repository>
       <id>clemlab</id>
@@ -72,6 +79,16 @@
       <id>oss.sonatype.org</id>
       <name>OSS Sonatype Staging</name>
       <url>https://nexus-rm.scalhive.com/repository/maven2-oss-sonatype/</url>
+    </repository>
+    <repository>
+      <id>maven-central</id>
+      <url>https://nexus-rm.scalhive.com/repository/maven-central-ambari/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
     </repository>
     <repository>
       <id>spring-milestones</id>
