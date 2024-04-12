@@ -27,6 +27,18 @@
   <packaging>jar</packaging>
   <name>Ambari Logsearch Log Feeder Container Registry</name>
   <artifactId>ambari-logsearch-logfeeder-container-registry</artifactId>
+  <repositories>
+    <repository>
+      <id>maven-central</id>
+      <url>https://nexus-rm.rework-space.com/repository/maven-central-ambari/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

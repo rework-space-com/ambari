@@ -325,7 +325,7 @@ template = '''
     {
       "id": "central",
       "type": "default",
-      "url": "http://repo1.maven.org/maven2/",
+      "url": "https://nexus-rm.rework-space.com/repository/maven-central-ambari/",
       "releasePolicy": {
         "enabled": true,
         "updatePolicy": "daily",

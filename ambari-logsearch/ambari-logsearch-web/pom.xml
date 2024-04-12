@@ -33,6 +33,19 @@
     <yarn.version>v1.1.0</yarn.version>
   </properties>
 
+  <repositories>
+    <repository>
+      <id>maven-central</id>
+      <url>https://nexus-rm.rework-space.com/repository/maven-central-ambari/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
   <build>
     <plugins>
       <plugin>

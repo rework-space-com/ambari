@@ -26,6 +26,18 @@
   <name>Ambari Infra Solr Plugin</name>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>ambari-infra-solr-plugin</artifactId>
+  <repositories>
+    <repository>
+      <id>maven-central</id>
+      <url>https://nexus-rm.rework-space.com/repository/maven-central-ambari/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
   <dependencies>
     <dependency>
       <groupId>org.apache.solr</groupId>

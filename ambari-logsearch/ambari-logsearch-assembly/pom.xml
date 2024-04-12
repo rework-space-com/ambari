@@ -38,7 +38,22 @@
     </logsearch.logfeeder.conf.mapping.path>
   </properties>
   <artifactId>ambari-logsearch-assembly</artifactId>
+
+  <repositories>
+    <repository>
+      <id>maven-central</id>
+      <url>https://nexus-rm.rework-space.com/repository/maven-central-ambari/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
   <profiles>
+
 
     <profile>
       <id>rpm</id>

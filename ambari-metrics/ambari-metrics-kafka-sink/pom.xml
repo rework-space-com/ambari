@@ -29,6 +29,18 @@ limitations under the License.
   <version>2.7.8.0.0</version>
   <name>Ambari Metrics Kafka Sink</name>
   <packaging>jar</packaging>
+  <repositories>
+    <repository>
+      <id>maven-central</id>
+      <url>https://nexus-rm.rework-space.com/repository/maven-central-ambari/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
   <build>
     <plugins>
       <plugin>

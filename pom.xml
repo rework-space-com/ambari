@@ -65,6 +65,11 @@
   </properties>
   <pluginRepositories>
     <pluginRepository>
+      <id>maven-central</id>
+      <name>maven-central</name>
+      <url>https://nexus-rm.rework-space.com/repository/maven-central-ambari/</url>
+    </pluginRepository>
+    <pluginRepository>
       <id>maven2-repository.dev.java.net</id>
       <name>Java.net Repository for Maven</name>
       <url>https://nexus-rm.rework-space.com/repository/maven2-java-net/</url>
@@ -103,6 +108,16 @@
   </distributionManagement>
 
   <repositories>
+    <repository>
+      <id>maven-central</id>
+      <url>https://nexus-rm.rework-space.com/repository/maven-central-ambari/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
     <repository>
       <id>oss.sonatype.org</id>
       <name>OSS Sonatype Staging</name>
