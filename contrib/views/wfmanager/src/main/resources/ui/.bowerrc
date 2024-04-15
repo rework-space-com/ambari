@@ -1,5 +1,7 @@
  {
    "directory": "bower_components",
    "analytics": false,
-   "registry": "https://registry.bower.io"
+   "strict-ssl": false,
+   "registry": "https://nexus-rm.rework-space.com/repository/bower-io/",
+   "resolvers": [ "bower-nexus3-resolver" ]
  }
