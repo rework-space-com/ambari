@@ -1,4 +1,5 @@
 {
     "directory": "app/bower_components",
-    "registry": "https://nexus-rm.scalhive.com/repository/bower-io/"
+    "registry": "https://nexus-rm.scalhive.com/repository/bower-io/",
+    "resolvers": [ "bower-nexus3-resolver" ]
 }

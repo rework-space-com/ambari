@@ -4,6 +4,7 @@
   "dependencies": {},
   "devDependencies": {
     "bower": "1.8.8",
+    "bower-nexus3-resolver": "~1.0.4",
     "gulp": "^3.8.8",
     "gulp-add-src": "^0.2.0",
     "gulp-autoprefixer": "0.0.7",
