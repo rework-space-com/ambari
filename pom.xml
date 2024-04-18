@@ -31,7 +31,7 @@
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
@@ -56,7 +56,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <distMgmtSnapshotsId>apache.snapshots.https</distMgmtSnapshotsId>
     <distMgmtSnapshotsName>Apache Development Snapshot Repository</distMgmtSnapshotsName>
-    <distMgmtSnapshotsUrl>https://repository.apache.org/content/repositories/snapshots</distMgmtSnapshotsUrl>
+    <distMgmtSnapshotsUrl>https://nexus-rm.scalhive.com/repository/maven2-apache-snapshots/</distMgmtSnapshotsUrl>
     <distMgmtStagingId>apache.staging.https</distMgmtStagingId>
     <distMgmtStagingName>Apache Release Distribution Repository</distMgmtStagingName>
     <distMgmtStagingUrl>https://repository.apache.org/service/local/staging/deploy/maven2</distMgmtStagingUrl>
@@ -65,20 +65,25 @@
   </properties>
   <pluginRepositories>
     <pluginRepository>
+      <id>maven-central</id>
+      <name>maven-central</name>
+      <url>https://nexus-rm.scalhive.com/repository/maven-central-ambari/</url>
+    </pluginRepository>
+    <pluginRepository>
       <id>maven2-repository.dev.java.net</id>
       <name>Java.net Repository for Maven</name>
-      <url>https://download.java.net/maven/2/</url>
+      <url>https://nexus-rm.scalhive.com/repository/maven2-java-net/</url>
       <layout>default</layout>
     </pluginRepository>
     <pluginRepository>
       <id>maven2-glassfish-repository.dev.java.net</id>
       <name>Java.net Repository for Maven</name>
-      <url>https://download.java.net/maven/glassfish/</url>
+      <url>https://nexus-rm.scalhive.com/repository/maven2-glassfish-java-net/</url>
     </pluginRepository>
     <pluginRepository>
       <id>maven2-repository.atlassian</id>
       <name>Atlassian Maven Repository</name>
-      <url>https://maven.atlassian.com/repository/public</url>
+      <url>https://nexus-rm.scalhive.com/repository/maven2-atlassian/</url>
       <layout>default</layout>
     </pluginRepository>
     <pluginRepository>
@@ -104,25 +109,35 @@
 
   <repositories>
     <repository>
+      <id>maven-central</id>
+      <url>https://nexus-rm.scalhive.com/repository/maven-central-ambari/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    <repository>
       <id>oss.sonatype.org</id>
       <name>OSS Sonatype Staging</name>
-      <url>https://oss.sonatype.org/content/groups/staging</url>
+      <url>https://nexus-rm.scalhive.com/repository/maven2-oss-sonatype/</url>
     </repository>
     <repository>
       <id>spring-milestones</id>
       <name>Spring Milestones</name>
-      <url>https://repo.spring.io/milestone</url>
+      <url>https://nexus-rm.scalhive.com/repository/maven2-spring-milestones/</url>
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
     </repository>
     <repository>
       <id>ASF Staging</id>
-      <url>https://repository.apache.org/content/groups/staging/</url>
+      <url>https://nexus-rm.scalhive.com/repository/maven2-apache-staging/</url>
     </repository>
     <repository>
       <id>ASF Snapshots</id>
-      <url>https://repository.apache.org/content/repositories/snapshots/</url>
+      <url>https://nexus-rm.scalhive.com/repository/maven2-apache-snapshots/</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
@@ -133,7 +148,7 @@
     <repository>
       <id>clemlab</id>
       <name>clemlab</name>
-      <url>https://nexus.clemlab.com/repository/maven-releases/</url>
+      <url>https://nexus-rm.scalhive.com/repository/maven2-clemlab/</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>

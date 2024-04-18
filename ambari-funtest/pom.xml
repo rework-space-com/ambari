@@ -22,6 +22,12 @@
   <packaging>${packagingFormat}</packaging>
   <name>Ambari Functional Tests</name>
   <description>Ambari Functional Tests</description>
+  <repositories>
+    <repository>
+      <id>maven-central</id>
+      <url>https://nexus-rm.scalhive.com/repository/maven-central-ambari/</url>
+    </repository>
+  </repositories>
   <build>
     <plugins>
        <plugin>

@@ -30,6 +30,12 @@
     <name>Ambari Views</name>
     <version>2.7.8.0.0</version>
     <description>Ambari View interfaces.</description>
+    <repositories>
+      <repository>
+        <id>maven-central</id>
+        <url>https://nexus-rm.scalhive.com/repository/maven-central-ambari/</url>
+      </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>

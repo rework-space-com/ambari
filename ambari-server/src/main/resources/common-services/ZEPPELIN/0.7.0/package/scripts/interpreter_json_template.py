@@ -482,7 +482,7 @@ template = '''
     {
       "id": "central",
       "type": "default",
-      "url": "http://repo1.maven.org/maven2/",
+      "url": "https://nexus-rm.scalhive.com/repository/maven-central-ambari/",
       "releasePolicy": {
         "enabled": true,
         "updatePolicy": "daily",

@@ -119,11 +119,22 @@
     <url>https://issues.apache.org/jira/browse/AMBARI</url>
   </issueManagement>
 
+  <pluginRepositories>
+    <pluginRepository>
+      <id>maven-central</id>
+      <url>https://nexus-rm.scalhive.com/repository/maven-central-ambari/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
   <repositories>
+      <repository>
+        <id>maven-central</id>
+        <url>https://nexus-rm.scalhive.com/repository/maven-central-ambari/</url>
+      </repository>
     <repository>
       <id>clemlab</id>
       <name>clemlab</name>
-      <url>https://nexus.clemlab.com/repository/maven-releases/</url>
+      <url>https://nexus-rm.scalhive.com/repository/maven2-clemlab/</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
@@ -134,23 +145,23 @@
     <repository>
       <id>oss.sonatype.org</id>
       <name>OSS Sonatype Staging</name>
-      <url>https://oss.sonatype.org/content/groups/staging</url>
+      <url>https://nexus-rm.scalhive.com/repository/maven2-oss-sonatype/</url>
     </repository>
     <repository>
       <id>spring-milestones</id>
       <name>Spring Milestones</name>
-      <url>https://repo.spring.io/milestone</url>
+      <url>https://nexus-rm.scalhive.com/repository/maven2-spring-milestones/</url>
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
     </repository>
     <repository>
       <id>ASF Staging</id>
-      <url>https://repository.apache.org/content/groups/staging/</url>
+      <url>https://nexus-rm.scalhive.com/repository/maven2-apache-staging/</url>
     </repository>
     <repository>
       <id>ASF Snapshots</id>
-      <url>https://repository.apache.org/content/repositories/snapshots/</url>
+      <url>https://nexus-rm.scalhive.com/repository/maven2-apache-snapshots/</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>

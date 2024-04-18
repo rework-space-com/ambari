@@ -26,12 +26,25 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>ambari-logsearch-docs</artifactId>
   <packaging>jar</packaging>
-  <url>http://maven.apache.org</url>
+  <url>https://maven.apache.org</url>
   <name>Ambari Logsearch Docs</name>
   <description>Ambari Logsearch Docs</description>
   <properties>
     <generate.swagger.yaml>false</generate.swagger.yaml>
   </properties>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>maven-central</id>
+      <url>https://nexus-rm.scalhive.com/repository/maven-central-ambari/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <repositories>
+    <repository>
+      <id>maven-central</id>
+      <url>https://nexus-rm.scalhive.com/repository/maven-central-ambari/</url>
+    </repository>
+  </repositories>
   <build>
     <resources>
       <resource>
