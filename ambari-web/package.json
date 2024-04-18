@@ -2,7 +2,7 @@
   "name": "Ambari",
   "description": "Front-end package for the Apache Ambari Project",
   "version": "2.4.0",
-  "homepage": "http://ambari.apache.org/",
+  "homepage": "https://ambari.apache.org/",
   "repository": {
     "type": "git",
     "url": "https://gitbox.apache.org/repos/asf/ambari/repo?p=ambari.git;a=summary"

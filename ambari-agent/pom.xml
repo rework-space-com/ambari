@@ -54,6 +54,21 @@
     <empty.dir>src/packages/tarball</empty.dir> <!-- any directory in project with not very big amount of files (not to waste-load them) -->
     <python.test.mask>[Tt]est*.py</python.test.mask>
   </properties>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>maven-central</id>
+      <url>https://nexus-rm.rework-space.com/repository/maven-central-ambari/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <repositories>
+    <repository>
+      <id>maven-central</id>
+      <url>https://nexus-rm.rework-space.com/repository/maven-central-ambari/</url>
+    </repository>
+  </repositories>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.zookeeper</groupId>

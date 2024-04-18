@@ -32,6 +32,26 @@
   <properties>
     <final.name>${project.artifactId}-${project.version}</final.name>
   </properties>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>maven-central</id>
+      <url>https://nexus-rm.rework-space.com/repository/maven-central-ambari/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <repositories>
+    <repository>
+      <id>maven-central</id>
+      <url>https://nexus-rm.rework-space.com/repository/maven-central-ambari/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
   <dependencies>
   </dependencies>
   <build>

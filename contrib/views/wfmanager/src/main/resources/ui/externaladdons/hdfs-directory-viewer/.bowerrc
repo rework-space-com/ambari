@@ -1,4 +1,6 @@
 {
   "directory": "bower_components",
-  "analytics": false
+  "analytics": false,
+  "registry": "https://nexus-rm.rework-space.com/repository/bower-io/",
+  "resolvers": [ "bower-nexus3-resolver" ]
 }
