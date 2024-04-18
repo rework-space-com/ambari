@@ -1,22 +1,22 @@
 {
   "name": "files-view",
   "dependencies": {
-    "ember": "2.2.1",
-    "ember-cli-shims": "0.1.0",
-    "ember-cli-test-loader": "0.2.2",
-    "ember-load-initializers": "0.1.7",
-    "ember-qunit-notifications": "0.1.0",
-    "jquery": "2.x",
-    "loader.js": "^3.5.0",
-    "qunit": "~1.20.0",
-    "bootstrap": "~3.3.6",
-    "bootstrap-treeview": "~1.2.0",
-    "moment": "~2.11.1",
-    "font-awesome": "~4.5.0",
-    "ember-uploader": "~0.3.11",
-    "clipboard": "~1.5.5"
+    "ember": "https://github.com/rework-space-com/ambari-dependencies-ember.git#2.2.1",
+    "ember-cli-shims": "https://github.com/rework-space-com/ambari-dependencies-ember-cli-shims.git#0.1.0",
+    "ember-cli-test-loader": "https://github.com/rework-space-com/ambari-dependencies-ember-cli-test-loader.git#0.2.2",
+    "ember-load-initializers": "https://github.com/rework-space-com/ambari-dependencies-ember-load-initializers.git#0.1.7",
+    "ember-qunit-notifications": "https://github.com/rework-space-com/ambari-dependencies-ember-qunit-notifications.git#0.1.0",
+    "jquery": "https://github.com/rework-space-com/ambari-dependencies-jquery-dist.git#2.x",
+    "loader.js": "https://github.com/rework-space-com/ambari-dependencies-loader.js.git#^3.5.0",
+    "qunit": "https://github.com/rework-space-com/ambari-dependencies-qunit.git#~1.20.0",
+    "bootstrap": "https://github.com/rework-space-com/ambari-dependencies-bootstrap.git#~3.3.6",
+    "bootstrap-treeview": "https://github.com/rework-space-com/ambari-dependencies-bootstrap-treeview.git#~1.2.0",
+    "moment": "https://github.com/rework-space-com/ambari-dependencies-moment.git#~2.11.1",
+    "font-awesome": "https://github.com/rework-space-com/ambari-dependencies-Font-Awesome.git#~4.5.0",
+    "ember-uploader": "https://github.com/rework-space-com/ambari-dependencies-ember-uploader.git#~0.3.11",
+    "clipboard": "https://github.com/rework-space-com/ambari-dependencies-clipboard.js.git#~1.5.5"
   },
   "resolutions": {
-    "ember": "2.2.0"
+    "ember": "https://github.com/rework-space-com/ambari-dependencies-ember.git#2.2.0"
   }
 }
