@@ -1,0 +1,31 @@
+name: Build Ambari
+
+on:
+  push:
+    branches:
+      - clemlab-2.7.8.0
+  pull_request:
+    branches:
+      - clemlab-2.7.8.0
+
+jobs:
+  build:
+    runs-on: [ self-hosted, Linux, X64, ubuntu ]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y maven openjdk-8-jdk python2-dev bzip2 git gcc
+          sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+          sudo update-alternatives --set javac /usr/lib/jvm/java-8-openjdk-amd64/bin/javac
+
+      - name: Build ambari
+        run: |
+          java -version && python2 -V
+          mvn -B install package jdeb:jdeb "-Dmaven.clover.skip=true" "-DskipTests" "-Dstack.distribution=ODP" \
+          "-Drat.ignoreErrors=true" -Dpython.ver="python >= 2.6" -Djdk.version="1.8" -Dfindbugs.skip=true \
+          -DnewVersion=2.7.8.0 -DbuildNumber=$(git rev-parse HEAD) -Dviews -Pdeb "-Dodp.release.number=134"
