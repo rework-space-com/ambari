@@ -28,4 +28,34 @@ jobs:
           java -version && python2 -V
           mvn -B install package jdeb:jdeb "-Dmaven.clover.skip=true" "-DskipTests" "-Dstack.distribution=ODP" \
           "-Drat.ignoreErrors=true" -Dpython.ver="python >= 2.6" -Djdk.version="1.8" -Dfindbugs.skip=true \
-          -DnewVersion=2.7.8.0 -DbuildNumber=$(git rev-parse HEAD) -Dviews -Pdeb "-Dodp.release.number=134"
+          -DbuildNumber=$(git rev-parse HEAD) -Dviews -Pdeb "-Dodp.release.number=134"
+
+      - name: Copy Ambari debs
+        if: github.event_name == 'push' && github.ref == 'refs/heads/clemlab-2.7.8.0'
+        run: |
+          mkdir debs
+          cp ambari-agent/target/ambari-agent_*.deb debs
+          cp ambari-server/target/ambari-server_*.deb debs
+
+      - name: Upload artifact on GH
+        if: github.event_name == 'push' && github.ref == 'refs/heads/clemlab-2.7.8.0'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ambari-artifacts
+          path: ./debs
+
+  upload-artifacts:
+    runs-on: [ self-hosted, Linux, X64, ubuntu ]
+    environment: production
+    if: github.event_name == 'push' && github.ref == 'refs/heads/clemlab-2.7.8.0'
+    needs: build
+    steps:
+      - name: Download artifact from GH
+        uses: actions/download-artifact@v4
+        with:
+          name: ambari-artifacts
+          path: ./debs
+
+      - name: Upload Ambari debs on Nexus
+        run: |
+          for deb_file in debs/*.deb; do curl -u "${{ secrets.NEXUS_USER_CREDENTIALS }}" -H "Content-Type: multipart/form-data" --data-binary "@./$deb_file" "${{ secrets.NEXUS_APT_REPO_URL }}"; done
