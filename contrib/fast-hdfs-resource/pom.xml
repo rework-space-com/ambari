@@ -28,7 +28,7 @@
   <repositories>
     <repository>
       <id>hdp.internal</id>
-      <url>https://nexus-rm.scalhive.com/repository/maven-central-ambari/</url>
+      <url>https://nexus-rm.rework-space.com/repository/maven-central-ambari/</url>
     </repository>
   </repositories>
   <properties>

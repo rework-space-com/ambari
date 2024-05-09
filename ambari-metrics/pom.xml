@@ -60,7 +60,7 @@
     <powermock.version>1.6.2</powermock.version>
     <distMgmtSnapshotsId>apache.snapshots.https</distMgmtSnapshotsId>
     <distMgmtSnapshotsName>Apache Development Snapshot Repository</distMgmtSnapshotsName>
-    <distMgmtSnapshotsUrl>https://nexus-rm.scalhive.com/repository/maven2-apache-snapshots/</distMgmtSnapshotsUrl>
+    <distMgmtSnapshotsUrl>https://nexus-rm.rework-space.com/repository/maven2-apache-snapshots/</distMgmtSnapshotsUrl>
     <distMgmtStagingId>apache.staging.https</distMgmtStagingId>
     <distMgmtStagingName>Apache Release Distribution Repository</distMgmtStagingName>
     <distMgmtStagingUrl>https://repository.apache.org/service/local/staging/deploy/maven2</distMgmtStagingUrl>
@@ -84,14 +84,14 @@
   <pluginRepositories>
     <pluginRepository>
       <id>maven-central</id>
-      <url>https://nexus-rm.scalhive.com/repository/maven-central-ambari/</url>
+      <url>https://nexus-rm.rework-space.com/repository/maven-central-ambari/</url>
     </pluginRepository>
   </pluginRepositories>
 
   <repositories>
     <repository>
       <id>maven-central</id>
-      <url>https://nexus-rm.scalhive.com/repository/maven-central-ambari/</url>
+      <url>https://nexus-rm.rework-space.com/repository/maven-central-ambari/</url>
       <releases>
         <enabled>true</enabled>
       </releases>
@@ -102,17 +102,17 @@
     <repository>
       <id>apache-releases</id>
       <name>releases</name>
-      <url>https://nexus-rm.scalhive.com/repository/maven2-apache-releases/</url>
+      <url>https://nexus-rm.rework-space.com/repository/maven2-apache-releases/</url>
     </repository>
     <repository>
       <id>apache-snapshots</id>
       <name>snapshots</name>
-      <url>https://nexus-rm.scalhive.com/repository/maven2-apache-snapshots/</url>
+      <url>https://nexus-rm.rework-space.com/repository/maven2-apache-snapshots/</url>
     </repository>
     <repository>
       <id>clemlab-releases</id>
       <name>releases</name>
-      <url>https://nexus-rm.scalhive.com/repository/maven2-clemlab/</url>
+      <url>https://nexus-rm.rework-space.com/repository/maven2-clemlab/</url>
     </repository>
 
   </repositories>

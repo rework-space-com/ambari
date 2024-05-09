@@ -25,7 +25,7 @@
   <repositories>
     <repository>
       <id>maven-central</id>
-      <url>https://nexus-rm.scalhive.com/repository/maven-central-ambari/</url>
+      <url>https://nexus-rm.rework-space.com/repository/maven-central-ambari/</url>
     </repository>
   </repositories>
   <build>

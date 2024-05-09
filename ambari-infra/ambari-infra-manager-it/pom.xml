@@ -33,14 +33,14 @@
   <pluginRepositories>
     <pluginRepository>
       <id>maven-central</id>
-      <url>https://nexus-rm.scalhive.com/repository/maven-central-ambari/</url>
+      <url>https://nexus-rm.rework-space.com/repository/maven-central-ambari/</url>
     </pluginRepository>
   </pluginRepositories>
 
   <repositories>
     <repository>
       <id>maven-central</id>
-      <url>https://nexus-rm.scalhive.com/repository/maven-central-ambari/</url>
+      <url>https://nexus-rm.rework-space.com/repository/maven-central-ambari/</url>
       <releases>
         <enabled>true</enabled>
       </releases>

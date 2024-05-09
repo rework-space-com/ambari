@@ -49,23 +49,23 @@
     <repository>
       <id>oss.sonatype.org</id>
       <name>OSS Sonatype Staging</name>
-      <url>https://nexus-rm.scalhive.com/repository/maven2-oss-sonatype/</url>
+      <url>https://nexus-rm.rework-space.com/repository/maven2-oss-sonatype/</url>
     </repository>
     <repository>
       <id>spring-milestones</id>
       <name>Spring Milestones</name>
-      <url>https://nexus-rm.scalhive.com/repository/maven2-spring-milestones/</url>
+      <url>https://nexus-rm.rework-space.com/repository/maven2-spring-milestones/</url>
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
     </repository>
     <repository>
       <id>ASF Staging</id>
-      <url>https://nexus-rm.scalhive.com/repository/maven2-apache-staging/</url>
+      <url>https://nexus-rm.rework-space.com/repository/maven2-apache-staging/</url>
     </repository>
     <repository>
       <id>ASF Snapshots</id>
-      <url>https://nexus-rm.scalhive.com/repository/maven2-apache-snapshots/</url>
+      <url>https://nexus-rm.rework-space.com/repository/maven2-apache-snapshots/</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
