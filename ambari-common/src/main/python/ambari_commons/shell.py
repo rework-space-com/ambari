@@ -31,6 +31,9 @@ import time
 
 import sys
 
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 from ambari_commons import OSConst
 from ambari_commons.buffered_queue import BufferedQueue
 from ambari_commons.constants import AMBARI_SUDO_BINARY
