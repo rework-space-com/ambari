@@ -36,6 +36,13 @@ jobs:
           mkdir debs
           cp ambari-agent/target/ambari-agent_*.deb debs
           cp ambari-server/target/ambari-server_*.deb debs
+          cp contrib/views/ambari-views-package/target/ambari-views-package_*.deb debs
+          cp ambari-logsearch/ambari-logsearch-assembly/target/ambari-logsearch-portal_*.deb debs
+          cp ambari-logsearch/ambari-logsearch-assembly/target/ambari-logsearch-logfeeder_*.deb debs
+          cp ambari-metrics/ambari-metrics-assembly/target/ambari-metrics-assembly_*.deb debs
+          cp ambari-infra/ambari-infra-assembly/target/ambari-infra-manager_*.deb debs
+          cp ambari-infra/ambari-infra-assembly/target/ambari-infra-solr-client_*.deb debs
+          cp ambari-infra/ambari-infra-assembly/target/ambari-infra-solr_*.deb debs
 
       - name: Upload artifact on GH
         if: github.event_name == 'push' && github.ref == 'refs/heads/clemlab-2.7.8.0'
