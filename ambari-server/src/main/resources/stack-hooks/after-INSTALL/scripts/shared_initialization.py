@@ -49,11 +49,11 @@ def setup_stack_symlinks(struct_out_file):
     Logger.warning("Skipping running stack-selector-tool because this is a sys_prepped host. This may cause symlink pointers not to be created for HDP components installed later on top of an already sys_prepped host")
     return
 
-  Logger.warning("stack_select.get_packages func was removed due to BIGTOP-3592 and BIGTOP-3651 issues")
+  # Logger.warning("stack_select.get_packages func was removed due to BIGTOP-3592 and BIGTOP-3651 issues")
   # get the packages which the stack-select tool should be used on
-  # stack_packages = stack_select.get_packages(stack_select.PACKAGE_SCOPE_INSTALL)
-  # if stack_packages is None:
-  #   return
+  stack_packages = stack_select.get_packages(stack_select.PACKAGE_SCOPE_INSTALL)
+  if stack_packages is None:
+    return
 
   json_version = load_version(struct_out_file)
 
