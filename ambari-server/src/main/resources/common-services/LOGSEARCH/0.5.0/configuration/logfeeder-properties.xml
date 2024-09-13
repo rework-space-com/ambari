@@ -21,6 +21,19 @@
 -->
 <configuration>
   <property>
+    <name>logfeeder.cloud.storage.mode</name>
+    <value>default</value>
+    <description>
+      Option to support sending logs to cloud storage.
+      Possible values:
+      - default
+      - cloud
+      - hybrid
+    </description>
+    <display-name>Log Feeder cloud storage mode</display-name>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
     <name>logfeeder.config.files</name>
     <value>{default_config_files}</value>
     <description>Comma separated config files in grok format</description>
