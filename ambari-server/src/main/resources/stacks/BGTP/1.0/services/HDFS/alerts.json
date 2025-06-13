@@ -1597,6 +1597,38 @@
             }
           }
         }
+      },
+      {
+        "name": "journalnode_editlog_age",
+        "label": "JournalNode EditLog Age",
+        "description": "Alerts if the latest edit log is older than expected",
+        "interval": 5,
+        "scope": "HOST",
+        "source": {
+          "type": "SCRIPT",
+          "path": "HDFS/2.1.0.2.0/package/alerts/alert_journalnode_check_edit_log_age.py",
+          "parameters": [
+            {
+              "name": "edits_dir",
+              "display_name": "Edits Directory",
+              "value": "/hadoop/hdfs/journal/mycluster/current"
+            },
+            {
+              "name": "max_age",
+              "display_name": "Max Age (min)",
+              "value": "10"
+            }
+          ],
+          "reporting": {
+            "ok": {
+              "text": "Latest edit log is fresh."
+            },
+            "critical": {
+              "text": "Latest edit log is older than {{max_age}} min",
+              "value": 2
+            }
+          }
+        }
       }
     ],      
     "DATANODE": [
