@@ -639,8 +639,27 @@ def is_spnego_enabled(params):
 def is_redhat_centos_6_plus():
   import platform
 
-  if platform.dist()[0] in ["redhat", "centos"] and platform.dist()[1] > "6.0":
-    return True
+  if platform.system() != "Linux":
+    return False
+
+  try:
+    with open("/etc/os-release") as f:
+      os_release = {}
+      for line in f:
+        if "=" in line:
+          key, value = line.rstrip().split("=", 1)
+          os_release[key] = value.strip('"')
+
+    os_id = os_release.get("ID", "").lower()
+    version_id = os_release.get("VERSION_ID", "0")
+
+    if os_id in ["rhel", "centos", "rocky", "almalinux", "redhat"] and \
+            float(version_id.split(".")[0]) >= 6:
+      return True
+
+  except Exception:
+    pass
+
   return False
 
 
