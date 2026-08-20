@@ -25,7 +25,7 @@
     </os>
     <os family="redhat9">
         <repo>
-            <baseurl>https://nexus-rm.dmp-insight.com/repository/bigtop-3.4.0-yum</baseurl>
+            <baseurl>https://nexus-rm.rework-space.com/repository/bigtop-3.4.0-yum</baseurl>
             <repoid>BIGTOP-3.4.0</repoid>
             <reponame>bigtop</reponame>
         </repo>
