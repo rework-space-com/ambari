@@ -522,7 +522,7 @@ def set_current(options):
   if get_verbose():
     sys.stdout.write("\nCalling API " + url + " : " + str(data) + "\n")
 
-  request.data = json.dumps(data)
+  request.data = json.dumps(data).encode("utf-8")
   request.get_method = lambda: "PUT"
 
   try:
