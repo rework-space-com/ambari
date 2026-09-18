@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<configuration>
+
+    <property>
+        <name>cluster.name</name>
+        <display-name>Cluster name</display-name>
+        <description>OpenSearch cluster name</description>
+        <value>hdp-opensearch</value>
+        <property-type>TEXT</property-type>
+        <is-required>true</is-required>
+    </property>
+
+    <property>
+        <name>node.name</name>
+        <display-name>Node name</display-name>
+        <description>
+            OpenSearch node name. Leave empty to use hostname.
+        </description>
+        <value></value>
+        <property-type>TEXT</property-type>
+    </property>
+
+    <property>
+        <name>network.host</name>
+        <display-name>Network host</display-name>
+        <description>Network address to bind OpenSearch</description>
+        <value>0.0.0.0</value>
+        <property-type>TEXT</property-type>
+    </property>
+
+    <property>
+        <name>http.port</name>
+        <display-name>HTTP port</display-name>
+        <description>OpenSearch HTTP port</description>
+        <value>9200</value>
+        <property-type>INT</property-type>
+    </property>
+
+    <property>
+        <name>transport.port</name>
+        <display-name>Transport port</display-name>
+        <description>OpenSearch transport port</description>
+        <value>9300</value>
+        <property-type>INT</property-type>
+    </property>
+
+    <property>
+        <name>discovery.seed_hosts</name>
+        <display-name>Discovery seed hosts</display-name>
+        <description>
+            Comma-separated list of OpenSearch cluster-manager nodes.
+        </description>
+        <value>hdp-search-01,hdp-search-02,hdp-search-03</value>
+        <property-type>TEXT</property-type>
+        <is-required>true</is-required>
+    </property>
+
+    <property>
+        <name>cluster.initial_cluster_manager_nodes</name>
+        <display-name>Initial cluster manager nodes</display-name>
+        <description>
+            Initial cluster-manager nodes used during first cluster bootstrap.
+        </description>
+        <value>hdp-search-01,hdp-search-02,hdp-search-03</value>
+        <property-type>TEXT</property-type>
+    </property>
+
+    <property>
+        <name>path.data</name>
+        <display-name>Data path</display-name>
+        <description>OpenSearch data directory</description>
+        <value>/var/lib/opensearch</value>
+        <property-type>TEXT</property-type>
+    </property>
+
+    <property>
+        <name>path.logs</name>
+        <display-name>Log path</display-name>
+        <description>OpenSearch log directory</description>
+        <value>/var/log/opensearch</value>
+        <property-type>TEXT</property-type>
+    </property>
+
+    <property>
+        <name>plugins.security.disabled</name>
+        <display-name>Disable Security plugin</display-name>
+        <description>
+            Disable OpenSearch Security plugin.
+        </description>
+        <value>false</value>
+        <property-type>BOOLEAN</property-type>
+    </property>
+
+</configuration>
