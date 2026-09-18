@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<metainfo>
+    <schemaVersion>2.0</schemaVersion>
+
+    <services>
+        <service>
+            <name>OPENSEARCH</name>
+            <displayName>OpenSearch</displayName>
+            <comment>OpenSearch distributed search and analytics engine</comment>
+            <version>2.19.6</version>
+
+            <components>
+
+                <component>
+                    <name>OPENSEARCH_SERVER</name>
+                    <displayName>OpenSearch Server</displayName>
+                    <category>MASTER</category>
+                    <cardinality>1+</cardinality>
+
+                    <commandScript>
+                        <script>scripts/opensearch.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>600</timeout>
+                    </commandScript>
+                </component>
+
+                <component>
+                    <name>OPENSEARCH_CLIENT</name>
+                    <displayName>OpenSearch Client</displayName>
+                    <category>CLIENT</category>
+                    <cardinality>0+</cardinality>
+
+                    <commandScript>
+                        <script>scripts/opensearch_client.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>600</timeout>
+                    </commandScript>
+                </component>
+
+            </components>
+        </service>
+    </services>
+</metainfo>

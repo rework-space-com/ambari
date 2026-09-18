@@ -1,0 +1,24 @@
+cluster.name: "{{ cluster_name }}"
+node.name: "{{ node_name }}"
+
+network.host: "{{ network_host }}"
+
+http.port: {{ http_port }}
+transport.port: {{ transport_port }}
+
+path.data: "{{ path_data }}"
+path.logs: "{{ path_logs }}"
+
+discovery.seed_hosts:
+{% for host in discovery_seed_hosts.split(',') %}
+  - "{{ host.strip() }}"
+{% endfor %}
+
+{% if initial_cluster_manager_nodes %}
+cluster.initial_cluster_manager_nodes:
+{% for host in initial_cluster_manager_nodes.split(',') %}
+  - "{{ host.strip() }}"
+{% endfor %}
+{% endif %}
+
+plugins.security.disabled: {{ security_disabled }}
