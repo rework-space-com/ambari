@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<configuration>
+
+    <property>
+        <name>fluent_bit.service.log_level</name>
+        <display-name>Log Level</display-name>
+        <description>Fluent Bit log level</description>
+        <value>info</value>
+        <value-attributes>
+            <type>value</type>
+            <overridable>true</overridable>
+        </value-attributes>
+    </property>
+
+    <property>
+        <name>fluent_bit.service.flush</name>
+        <display-name>Flush Interval</display-name>
+        <description>Flush interval in seconds</description>
+        <value>1</value>
+    </property>
+
+    <property>
+        <name>fluent_bit.opensearch.host</name>
+        <display-name>OpenSearch Host</display-name>
+        <description>OpenSearch endpoint</description>
+        <value>opensearch-01</value>
+    </property>
+
+    <property>
+        <name>fluent_bit.opensearch.port</name>
+        <display-name>OpenSearch Port</display-name>
+        <description>OpenSearch HTTP port</description>
+        <value>9200</value>
+    </property>
+
+    <property>
+        <name>fluent_bit.opensearch.tls</name>
+        <display-name>OpenSearch TLS</display-name>
+        <description>Enable TLS for OpenSearch connection</description>
+        <value>false</value>
+    </property>
+
+    <property>
+        <name>fluent_bit.opensearch.index</name>
+        <display-name>OpenSearch Index</display-name>
+        <description>Index for Hadoop logs</description>
+        <value>hadoop-logs</value>
+    </property>
+
+</configuration>

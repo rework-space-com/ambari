@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<metainfo>
+    <schemaVersion>2.0</schemaVersion>
+
+    <services>
+        <service>
+            <name>FLUENT_BIT</name>
+            <displayName>Fluent Bit</displayName>
+            <comment>Fluent Bit fast and lightweight telemetry agent for logs, metrics, and traces</comment>
+            <version>5.0.10</version>
+
+            <components>
+
+                <component>
+                    <name>FLUENT_BIT_AGENT</name>
+                    <displayName>Fluent Bit Agent</displayName>
+                    <category>MASTER</category>
+                    <cardinality>1+</cardinality>
+
+                    <commandScript>
+                        <script>scripts/fluent_bit.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>600</timeout>
+                    </commandScript>
+                </component>
+
+            </components>
+        </service>
+    </services>
+</metainfo>
