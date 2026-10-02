@@ -1,0 +1,93 @@
+[SERVICE]
+    Flush        {{ fluent_bit_flush }}
+    Log_Level    {{ fluent_bit_log_level }}
+    Parsers_File /etc/fluent-bit/parsers.conf
+    storage.path /var/lib/fluent-bit/storage
+
+{% if hdfs_enabled %}
+[INPUT]
+    Name              tail
+    Tag               hadoop.hdfs
+    Path              /var/log/hadoop-hdfs/*.log
+    DB                /var/lib/fluent-bit/hadoop-hdfs.db
+    Read_from_Head    false
+    Skip_Long_Lines   On
+    Refresh_Interval  10
+{% endif %}
+
+{% if yarn_enabled %}
+[INPUT]
+    Name              tail
+    Tag               hadoop.yarn
+    Path              /var/log/hadoop-yarn/*.log
+    DB                /var/lib/fluent-bit/hadoop-yarn.db
+    Read_from_Head    false
+    Skip_Long_Lines   On
+    Refresh_Interval  10
+{% endif %}
+
+{% if ambari_server_enabled %}
+[INPUT]
+    Name              tail
+    Tag               ambari.server
+    Path              /var/log/ambari-server/*.log
+    DB                /var/lib/fluent-bit/ambari-server.db
+    Read_from_Head    false
+    Skip_Long_Lines   On
+    Refresh_Interval  10
+{% endif %}
+
+{% if ambari_agent_enabled %}
+[INPUT]
+    Name              tail
+    Tag               ambari.agent
+    Path              /var/log/ambari-agent/*.log
+    DB                /var/lib/fluent-bit/ambari-agent.db
+    Read_from_Head    false
+    Skip_Long_Lines   On
+    Refresh_Interval  10
+{% endif %}
+
+{% if hive_enabled %}
+[INPUT]
+    Name              tail
+    Tag               hadoop.hive
+    Path              /var/log/hive/*.log
+    DB                /var/lib/fluent-bit/hive.db
+    Read_from_Head    false
+    Skip_Long_Lines   On
+    Refresh_Interval  10
+{% endif %}
+
+{% if spark_enabled %}
+[INPUT]
+    Name              tail
+    Tag               hadoop.spark
+    Path              /var/log/spark/*.log
+    DB                /var/lib/fluent-bit/spark.db
+    Read_from_Head    false
+    Skip_Long_Lines   On
+    Refresh_Interval  10
+{% endif %}
+
+{% if zeppelin_enabled %}
+[INPUT]
+    Name              tail
+    Tag               hadoop.zeppelin
+    Path              /var/log/zeppelin/*.log
+    DB                /var/lib/fluent-bit/zeppelin.db
+    Read_from_Head    false
+    Skip_Long_Lines   On
+    Refresh_Interval  10
+{% endif %}
+
+[OUTPUT]
+    Name                 opensearch
+    Match                *
+    Host                 {{ opensearch_host }}
+    Port                 {{ opensearch_port }}
+    Index                hadoop-logs
+    Logstash_Format      On
+    Logstash_Prefix      hadoop-logs
+    Suppress_Type_Name   On
+    Retry_Limit          5
